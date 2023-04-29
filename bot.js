@@ -19,7 +19,6 @@ import { Client, Collection, Events, DataResolver, GatewayIntentBits } from 'dis
 // Command setup
 import { sortDictData } from './commands/dict.js';
 import { registerCommands } from "./register-commands.js";
-import { handleWYRMessage } from "./commands/wouldyourather.js";
 
 // Read in the environment configuration
 dotenv.config();
@@ -93,7 +92,6 @@ client.on("messageCreate", (message) => {
 	if (message.author.bot) return false; 
   
 	logInfo(`Message from ${message.author.username}: ${message.content}`);
-	//handleWYRMessage(message);
 });
 
 /**
