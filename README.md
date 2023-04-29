@@ -72,6 +72,7 @@ See https://www.reddit.com/dev/api/oauth/
 #### REDDIT_CLIENT_SECRET
 #### REDDIT_USER_AGENT
 #### REDDIT_LINK_SUBREDDITS
+Comma separated list of subreddits to use when using the link command.  e.g. REDDIT_LINK_SUBREDDITS="pics,news,worldnews"
 
 #### PYTHON_BINARY
 Name/location of python binary, e.g. python3  Needs PRAW installed to work with reddit.
