@@ -8,7 +8,7 @@ Simple discord bot to do various stuff that was once handled by IRC bots but als
 - Fill out .env with the stuff
 - npm install
 - node ./deploy-commands.js prod
-- node ./bot.js
+- node ./bot.js prod
 
 ## .env configuration details
 
@@ -81,3 +81,29 @@ OpenAI model to use, e.g. 'text-davinci-003'
 
 #### QUERY_PROMPT_HEADER
 Lead in information before the query is sent to ChatGPT.  Use this to fill out info if you want it to know basic info about users. E.g. "Joe hates IPA beer"
+
+## Running the bot as a systemd service in Linux
+Super easy to run the bot in a VM or a raspberry pi or something.
+
+Here's an example systemd configuration:
+```
+[Unit]
+Description=BOOBSbot
+After=multi-user.target
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/home/user/dev/BottyMcBotFace
+ExecStart=/usr/bin/node /home/user/dev/BottyMcBotFace/bot.js prod
+StandardOutput=append:/var/log/bottymcbotface.log
+StandardError=append:/var/log/bottymcbotface.log
+Type=idle
+Restart=always
+RestartSec=15
+RestartPreventExitStatus=0
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
