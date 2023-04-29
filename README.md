@@ -71,6 +71,9 @@ See https://www.reddit.com/dev/api/oauth/
 #### REDDIT_USER_AGENT
 #### REDDIT_LINK_SUBREDDITS
 
+#### PYTHON_BINARY
+Name/location of python binary, e.g. python3  Needs PRAW installed to work with reddit.
+
 ### ChatGPT command settings
 
 #### OPENAI_API_KEY
