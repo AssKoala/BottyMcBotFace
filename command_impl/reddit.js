@@ -32,18 +32,7 @@ async function getRedditLinks(searchLimit, timeFilter, subredditList) {
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = dirname(__filename);
 
-        let python = "";
-        switch (os.platform()) {
-            case "win32":
-                python = 'python';
-                break;
-            case "linux":
-                python = 'python3';
-                break;
-            default:
-                python = 'python';
-                break;
-        };
+        const python = process.env.PYTHON_BINARY;
 
         const args = [ '../reddit_reader/main.py', 
                 process.env.REDDIT_CLIENT_ID, 

@@ -22,7 +22,7 @@ const clientId = getDiscordAppId();
 		node .\deploy-commands.js [prod?] [global|guild] clear
 
 */
-const guildId = getDiscordGuildId();
+const guildIdList = getDiscordGuildId().split(",");
 const token = getDiscordKey();
 
 const commands = [];
@@ -53,9 +53,11 @@ if (process.argv.length > 4 && process.argv[4] == "clear")	// arg3 should be gui
 			.then(() => console.log('Successfully deleted all application commands.'))
 			.catch(console.error);
 	} else {
-		rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
-			.then(() => console.log('Successfully deleted all guild commands.'))
-			.catch(console.error);
+		guildIdList.forEach(guildId => {
+			rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
+				.then(() => console.log('Successfully deleted all guild commands.'))
+				.catch(console.error);
+		});
 	}
 } else {
 	// and deploy your commands!
@@ -72,12 +74,14 @@ if (process.argv.length > 4 && process.argv[4] == "clear")	// arg3 should be gui
 		
 				console.log(`Successfully reloaded ${data.length} GLOBAL application (/) commands.`);
 			} else {
-				const data = await rest.put(
-					Routes.applicationGuildCommands(clientId, guildId),
-					{ body: commands },
-				);
-		
-				console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+				for (const guildId of guildIdList) {
+					const data = await rest.put(
+						Routes.applicationGuildCommands(clientId, guildId),
+						{ body: commands },
+					);
+
+					console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+				}				
 			}
 		} catch (error) {
 			// And of course, make sure you catch and log any errors!
