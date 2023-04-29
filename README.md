@@ -2,6 +2,8 @@
 
 Simple discord bot to do various stuff that was once handled by IRC bots but also does other, new things good too.
 
+Written in a rather verbose way to make it easy for a beginner to read.  There may be better ways to do things, but this is extremely simple to follow.
+
 ## Basic instructions
 - Clone repo
 - Copy example env file to .env
@@ -110,3 +112,13 @@ TimeoutStopSec=10
 [Install]
 WantedBy=multi-user.target
 ```
+
+## High level program flow
+
+### Bot
+
+bot.js contains all the discord bot code.
+
+On startup, the env file is loaded and the modules are read in.  These then dynamically register themselves based on what the .env file says should be loaded.
+
+Each module is passed in the discord interaction when discord sends a matching command.  Each command implements their own functionality independent of any other, though shared functionality (e.g. user settings) can be accessed via the common.js exports.
